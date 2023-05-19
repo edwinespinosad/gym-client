@@ -1,0 +1,331 @@
+<template>
+  <v-row>
+    <v-col cols="5">
+      <div class="d-flex">
+        <h5 class="w-100">Actividad</h5>
+        <v-select
+          :items="filters"
+          outlined
+          dark
+          :height="30"
+          dense
+          v-model="periodMembershipSales"
+          class="remove"
+        ></v-select>
+      </div>
+      <v-card color="#0f0f0f" dark class="p-4 h-90">
+        <canvas id="myChart" ref="chartMembershipSales" class=""></canvas>
+      </v-card>
+    </v-col>
+
+    <v-col cols="5">
+      <h5>Instructores</h5>
+
+      <swiper
+        ref="mySwiper"
+        :slidesPerView="2"
+        :spaceBetween="30"
+        :freeMode="true"
+        :pagination="{
+          clickable: true,
+        }"
+        class="mySwiper h-90"
+      >
+        <swiper-slide v-for="(item, i) in instructors" :key="i">
+          <v-card
+            color="#0f0f0f"
+            class="p-4 d-flex flex-column justify-content-center align-items-center text-white h-100"
+          >
+            <h5 class="fst-italic">{{ item.name }}</h5>
+
+            <v-img :width="150" :height="250" :src="item.image" cover></v-img>
+          </v-card>
+        </swiper-slide>
+      </swiper>
+    </v-col>
+
+    <Membership></Membership>
+
+    <Goals></Goals>
+
+    <Routines></Routines>
+  </v-row>
+</template>
+
+<script>
+import { Bar } from "vue-chartjs";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
+
+import axios from "axios";
+import { Navigation, Pagination } from "swiper";
+
+import { SwiperCore, Swiper, SwiperSlide } from "swiper-vue2";
+// Import Swiper styles
+import "swiper/swiper-bundle.css";
+
+import Goals from "../components/Home/Goals.vue";
+import Routines from "../components/Home/Routines.vue";
+import Membership from "../components/Home/Membership.vue";
+
+SwiperCore.use([Navigation, Pagination]);
+export default {
+  components: {
+    Bar,
+    Swiper,
+    SwiperSlide,
+    Goals,
+    Routines,
+    Membership,
+  },
+  data() {
+    return {
+      instructors: [],
+      chart: null,
+      chartNewClients: null,
+      example: [
+        { name: "nombre 1", image: "/perfil.jpg" },
+        { name: "nombre 3", image: "/perfil.jpg" },
+        { name: "nombre 2", image: "/perfil.jpg" },
+        { name: "nombre 2", image: "/perfil.jpg" },
+        { name: "nombre 2", image: "/perfil.jpg" },
+        { name: "nombre 2", image: "/perfil.jpg" },
+      ],
+
+      check: false,
+      periodIncome: "Mensual",
+      periodMembershipSales: "Mensual",
+      periodNewClients: "Mensual",
+      filters: ["Semanal", "Mensual", "Anual"],
+      incomes: null,
+      membershipSales: null,
+      newClients: null,
+
+      months: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ],
+    };
+  },
+  mounted() {
+    this.getInstructors();
+
+    // this.chart = new ChartJS(this.$refs.chartMembershipSales, {
+    //   type: "bar",
+    //   data: {
+    //     labels: [],
+    //     datasets: [
+    //       {
+    //         label: "Ventas de Membresias",
+    //         backgroundColor: "rgba(255,99,132,0.2)",
+    //         borderColor: "rgba(255,99,132,1)",
+    //         borderWidth: 1,
+    //         hoverBackgroundColor: "rgba(255,99,132,0.4)",
+    //         hoverBorderColor: "rgba(255,99,132,1)",
+    //         data: [],
+    //       },
+    //     ],
+    //   },
+    // });
+
+    // this.chartNewClients = new ChartJS(this.$refs.chartNewClients, {
+    //   type: "bar",
+    //   data: {
+    //     labels: [],
+    //     datasets: [
+    //       {
+    //         label: "Nuevos Clientes",
+    //         backgroundColor: "rgba(255,99,132,0.2)",
+    //         borderColor: "rgba(255,99,132,1)",
+    //         borderWidth: 1,
+    //         hoverBackgroundColor: "rgba(255,99,132,0.4)",
+    //         hoverBorderColor: "rgba(255,99,132,1)",
+    //         data: [],
+    //       },
+    //     ],
+    //   },
+    // });
+  },
+  created() {
+    this.getInstructors();
+    // this.getIncomes();
+    // this.getMembershipSales();
+    // this.getNewClients();
+  },
+  watch: {
+    periodIncome: function (newVal, oldVal) {
+      this.getIncomes();
+    },
+    periodMembershipSales: function (newVal, oldVal) {
+      this.getMembershipSales();
+    },
+    periodNewClients: function (newVal, oldVal) {
+      this.getNewClients();
+    },
+  },
+  methods: {
+    onSwiper(swiper) {
+      console.log(swiper);
+    },
+    onSlideChange() {},
+    async getInstructors() {
+      try {
+        await axios
+          .get(
+            `${process.env.VITE_API_URL.replace(/"/g, "")}/api/instructors`,
+            {
+              headers: { "x-access-token": localStorage.getItem("token") },
+            }
+          )
+          .then((response) => {
+            response.data.rows.forEach((element) => {
+              this.instructors.push(element);
+            });
+            const swiper = document.querySelector(".mySwiper").swiper;
+            swiper.update();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getIncomes() {
+      try {
+        const response = await axios
+          .get(
+            `${process.env.VITE_API_URL.replace(
+              /"/g,
+              ""
+            )}/api/incomes?periodo=${this.periodIncome.toLowerCase()}`,
+            {
+              headers: { "x-access-token": localStorage.getItem("token") },
+            }
+          )
+          .then((response) => {
+            this.incomes =
+              response.data.incomes[response.data.incomes.length - 1].total;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // async getMembershipSales() {
+    //   try {
+    //     const response = await axios
+    //       .get(
+    //         `${process.env.VITE_API_URL.replace(
+    //           /"/g,
+    //           ""
+    //         )}/api/memberships-sales?periodo=${this.periodMembershipSales.toLowerCase()}`,
+    //         {
+    //           headers: { "x-access-token": localStorage.getItem("token") },
+    //         }
+    //       )
+    //       .then((response) => {
+    //         this.chart.data.datasets[0].data = [];
+    //         this.chart.data.labels = [];
+
+    //         response.data.membershipSales.forEach((element) => {
+    //           this.chart.data.datasets[0].data.push(element.ventas);
+    //           if (this.periodMembershipSales === "Mensual") {
+    //             this.chart.data.labels.push(this.months[element.periodo - 1]);
+    //           } else {
+    //             this.chart.data.labels.push(element.periodo.toString());
+    //           }
+    //         });
+    //         if (this.$refs.chartMembershipSales) {
+    //           this.chart.update();
+    //         }
+    //         this.membershipSales = response.data.membershipSales;
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
+    // async getNewClients() {
+    //   try {
+    //     const response = await axios
+    //       .get(
+    //         `${process.env.VITE_API_URL.replace(
+    //           /"/g,
+    //           ""
+    //         )}/api/new-clients?periodo=${this.periodNewClients.toLowerCase()}`,
+    //         {
+    //           headers: { "x-access-token": localStorage.getItem("token") },
+    //         }
+    //       )
+    //       .then((response) => {
+    //         this.chartNewClients.data.datasets[0].data = [];
+    //         this.chartNewClients.data.labels = [];
+
+    //         response.data.newClients.forEach((element) => {
+    //           this.chartNewClients.data.datasets[0].data.push(element.count);
+    //           if (element.day !== undefined) {
+    //             this.chartNewClients.data.labels.push(element.day.toString());
+    //           } else if (element.month !== undefined) {
+    //             this.chartNewClients.type = "line";
+    //             this.chartNewClients.data.labels.push(
+    //               this.months[element.month - 1]
+    //             );
+    //           } else if (element.year !== undefined) {
+    //             this.chartNewClients.data.labels.push(element.year.toString());
+    //           }
+    //         });
+    //         if (this.$refs.chartMembershipSales) {
+    //           this.chartNewClients.update();
+    //         }
+    //         this.newClients = response.data.newClients;
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
+  },
+};
+</script>
+
+<style>
+.remove .v-input__control .v-text-field__details {
+  display: none !important;
+}
+.remove .v-input__control .v-input__slot  {
+  min-height: 0px !important;
+}
+</style>

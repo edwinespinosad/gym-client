@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Meera+Inimai&family=Mulish&family=Numans&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Meera Inimai', sans-serif;
+}
+
+* {
+    font-family: 'Mulish', sans-serif;
+}
+
+.vh-70 {
+    height: 70vh;
+}
+
+.top-2 {
+    top: -2% !important;
+}
+
+.bg-green {
+    background-color: #e3ffa8 !important;
+}
+
+.color-green {
+    color: #e3ffa8 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#div-a {
+    width: 2.5rem;
+    height: 2.5rem;
+    text-decoration: none;
+}
+
+#div-a i.v-icon.v-icon {
+    font-size: 2rem !important;
+    text-decoration: none;
+}
+
+.active-link {
+    background-color: #e3ffa8 !important;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+}
+
+.active-link i.v-icon.v-icon {
+    color: #0f0f0f !important;
+}
+
+.drop {
+    background: #ffffff;
+    border: 2px dashed #707070;
+    border-radius: 100%;
+    height: 110px;
+    width: 110px;
+}
+
+.router {
+    text-decoration: none;
+}
+
+.table-hover tbody tr:hover td {
+    color: #ffffff;
+    background-color: #000000;
+    transition: 0.5s ease-out;
+}
+
+.v-btn {
+    text-transform: unset !important;
+}
+
+.w-48 {
+    width: 48% !important;
+}
+
+.h-90 {
+    height: 90%;
+}
+
+.grid {
+    columns: 2;
+    column-gap: 15px;
+    padding: 15px;
+}
