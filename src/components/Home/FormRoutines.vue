@@ -200,7 +200,7 @@ export default {
             .then((response) => {
               if (response.data.success) {
                 this.$swal.fire({
-                  title: "Usuario modificado!",
+                  title: "Rutina modificada!",
                   icon: "success",
                   confirmButtonText: "Ok",
                   timer: 1500,
