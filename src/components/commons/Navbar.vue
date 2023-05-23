@@ -28,6 +28,8 @@
         <span class="text-dark">{{ link.title }}</span>
       </v-tooltip>
 
+      <FormSuggestion></FormSuggestion>
+
       <div
         class="d-flex justify-content-center align-items-center cursor-pointer"
         id="div-a"
@@ -40,7 +42,10 @@
 </template>
 
 <script>
+import FormSuggestion from "../Suggestion/FormSuggestion.vue";
+
 export default {
+  components: { FormSuggestion },
   data: () => {
     return {
       links: [
@@ -54,17 +59,11 @@ export default {
           title: "Mi Progreso",
           icon: "fa-solid fa-bars-progress",
         },
-        { name: "about", title: "Clientes", icon: "fa-regular fa-user" },
-        // {
-        //   name: "memberships",
-        //   title: "Membresías",
-        //   icon: "fa-regular fa-address-card",
-        // },
-        // {
-        //   name: "instructors",
-        //   title: "Instructores",
-        //   icon: "fa-solid fa-dumbbell",
-        // },
+        {
+          name: "meals",
+          title: "Comidas",
+          icon: "fa-solid fa-bowl-rice",
+        },
       ],
     };
   },

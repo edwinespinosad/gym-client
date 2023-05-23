@@ -134,48 +134,9 @@ export default {
   },
   mounted() {
     this.getInstructors();
-
-    // this.chart = new ChartJS(this.$refs.chartMembershipSales, {
-    //   type: "bar",
-    //   data: {
-    //     labels: [],
-    //     datasets: [
-    //       {
-    //         label: "Ventas de Membresias",
-    //         backgroundColor: "rgba(255,99,132,0.2)",
-    //         borderColor: "rgba(255,99,132,1)",
-    //         borderWidth: 1,
-    //         hoverBackgroundColor: "rgba(255,99,132,0.4)",
-    //         hoverBorderColor: "rgba(255,99,132,1)",
-    //         data: [],
-    //       },
-    //     ],
-    //   },
-    // });
-
-    // this.chartNewClients = new ChartJS(this.$refs.chartNewClients, {
-    //   type: "bar",
-    //   data: {
-    //     labels: [],
-    //     datasets: [
-    //       {
-    //         label: "Nuevos Clientes",
-    //         backgroundColor: "rgba(255,99,132,0.2)",
-    //         borderColor: "rgba(255,99,132,1)",
-    //         borderWidth: 1,
-    //         hoverBackgroundColor: "rgba(255,99,132,0.4)",
-    //         hoverBorderColor: "rgba(255,99,132,1)",
-    //         data: [],
-    //       },
-    //     ],
-    //   },
-    // });
   },
   created() {
     this.getInstructors();
-    // this.getIncomes();
-    // this.getMembershipSales();
-    // this.getNewClients();
   },
   watch: {
     periodIncome: function (newVal, oldVal) {
@@ -189,9 +150,6 @@ export default {
     },
   },
   methods: {
-    onSwiper(swiper) {
-      console.log(swiper);
-    },
     onSlideChange() {},
     async getInstructors() {
       try {
@@ -240,83 +198,6 @@ export default {
         console.log(error);
       }
     },
-    // async getMembershipSales() {
-    //   try {
-    //     const response = await axios
-    //       .get(
-    //         `${process.env.VITE_API_URL.replace(
-    //           /"/g,
-    //           ""
-    //         )}/api/memberships-sales?periodo=${this.periodMembershipSales.toLowerCase()}`,
-    //         {
-    //           headers: { "x-access-token": localStorage.getItem("token") },
-    //         }
-    //       )
-    //       .then((response) => {
-    //         this.chart.data.datasets[0].data = [];
-    //         this.chart.data.labels = [];
-
-    //         response.data.membershipSales.forEach((element) => {
-    //           this.chart.data.datasets[0].data.push(element.ventas);
-    //           if (this.periodMembershipSales === "Mensual") {
-    //             this.chart.data.labels.push(this.months[element.periodo - 1]);
-    //           } else {
-    //             this.chart.data.labels.push(element.periodo.toString());
-    //           }
-    //         });
-    //         if (this.$refs.chartMembershipSales) {
-    //           this.chart.update();
-    //         }
-    //         this.membershipSales = response.data.membershipSales;
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
-    // async getNewClients() {
-    //   try {
-    //     const response = await axios
-    //       .get(
-    //         `${process.env.VITE_API_URL.replace(
-    //           /"/g,
-    //           ""
-    //         )}/api/new-clients?periodo=${this.periodNewClients.toLowerCase()}`,
-    //         {
-    //           headers: { "x-access-token": localStorage.getItem("token") },
-    //         }
-    //       )
-    //       .then((response) => {
-    //         this.chartNewClients.data.datasets[0].data = [];
-    //         this.chartNewClients.data.labels = [];
-
-    //         response.data.newClients.forEach((element) => {
-    //           this.chartNewClients.data.datasets[0].data.push(element.count);
-    //           if (element.day !== undefined) {
-    //             this.chartNewClients.data.labels.push(element.day.toString());
-    //           } else if (element.month !== undefined) {
-    //             this.chartNewClients.type = "line";
-    //             this.chartNewClients.data.labels.push(
-    //               this.months[element.month - 1]
-    //             );
-    //           } else if (element.year !== undefined) {
-    //             this.chartNewClients.data.labels.push(element.year.toString());
-    //           }
-    //         });
-    //         if (this.$refs.chartMembershipSales) {
-    //           this.chartNewClients.update();
-    //         }
-    //         this.newClients = response.data.newClients;
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
   },
 };
 </script>
@@ -325,7 +206,7 @@ export default {
 .remove .v-input__control .v-text-field__details {
   display: none !important;
 }
-.remove .v-input__control .v-input__slot  {
+.remove .v-input__control .v-input__slot {
   min-height: 0px !important;
 }
 </style>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProgressView from '../views/ProgressView.vue'
+import RecommendationsView from '../views/RecommendationsView.vue'
 
 
 Vue.use(VueRouter)
@@ -10,6 +11,10 @@ const router = new VueRouter({
   mode: 'history',
   linkActiveClass: "active-link",
   routes: [
+    {
+      path: '/',
+      redirect: '/home',
+    },
     {
       path: '/home',
       name: 'home',
@@ -21,12 +26,9 @@ const router = new VueRouter({
       component: ProgressView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/meals',
+      name: 'meals',
+      component: RecommendationsView
     }
   ]
 })

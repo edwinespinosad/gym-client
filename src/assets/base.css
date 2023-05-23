@@ -89,3 +89,7 @@ h5 {
     column-gap: 15px;
     padding: 15px;
 }
+
+.bg-gray {
+    background-color: #0f0f0f !important;
+}

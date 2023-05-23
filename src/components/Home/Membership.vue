@@ -15,38 +15,12 @@
         <h5
           class="text-center"
           :class="{
-            'text-danger':
-              getDaysLeft(
-                client.latest_purchase_date,
-                client.membership_duration
-              ) == 0,
-            'text-warning':
-              getDaysLeft(
-                client.latest_purchase_date,
-                client.membership_duration
-              ) > 0 &&
-              getDaysLeft(
-                client.latest_purchase_date,
-                client.membership_duration
-              ) < 5,
-            'text-success':
-              getDaysLeft(
-                client.latest_purchase_date,
-                client.membership_duration
-              ) >= 5,
+            'text-danger': daysLeft === 0,
+            'text-warning': daysLeft > 0 && daysLeft < 5,
+            'text-success': daysLeft >= 5,
           }"
         >
-          {{
-            getDaysLeft(client.latest_purchase_date, client.membership_duration)
-          }}
-          {{
-            getDaysLeft(
-              client.latest_purchase_date,
-              client.membership_duration
-            ) === 1
-              ? "día"
-              : "días"
-          }}
+          {{ daysLeft }} {{ daysLeft === 1 ? "día" : "días" }}
         </h5>
       </div>
       <p v-else class="p-5 text-center">No tienes ninguna membresía activa</p>
@@ -61,6 +35,7 @@ export default {
   data() {
     return {
       client: {},
+      daysLeft: 0,
     };
   },
   created() {
@@ -69,42 +44,38 @@ export default {
   methods: {
     async getInfoClient() {
       try {
-        await axios
-          .get(
-            `${process.env.VITE_API_URL.replace(
-              /"/g,
-              ""
-            )}/api/clients/membership/` + localStorage.getItem("user"),
-            {
-              headers: { "x-access-token": localStorage.getItem("token") },
-            }
-          )
-          .then((response) => {
-            this.client = response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        const response = await axios.get(
+          `${process.env.VITE_API_URL.replace(
+            /"/g,
+            ""
+          )}/api/clients/membership/` + localStorage.getItem("user"),
+          {
+            headers: { "x-access-token": localStorage.getItem("token") },
+          }
+        );
+        this.client = response.data;
+        this.calculateDaysLeft();
       } catch (error) {
         console.log(error);
       }
     },
-    getDaysLeft(date, duration) {
-      try {
-        let fecha = new Date(date);
+    calculateDaysLeft() {
+      const latestPurchaseDate = this.client.latest_purchase_date;
+      const membershipDuration = this.client.membership_duration;
 
-        if (duration.includes("mes")) {
-          fecha.setMonth(fecha.getMonth() + parseInt(duration));
-          let days = Math.floor((new Date(fecha) - new Date()) / 86400000);
-          console.log(days < 0 ? 0 : days);
-          return days < 0 ? 0 : days;
+      if (latestPurchaseDate && membershipDuration) {
+        const fecha = new Date(latestPurchaseDate);
+
+        if (membershipDuration.includes("mes")) {
+          fecha.setMonth(fecha.getMonth() + parseInt(membershipDuration));
         } else {
-          fecha.setDate(fecha.getDate() + parseInt(duration));
-          let days = Math.floor((new Date(fecha) - new Date()) / 86400000);
-          return days < 0 ? 0 : days;
+          fecha.setDate(fecha.getDate() + parseInt(membershipDuration));
         }
-      } catch (error) {
-        console.log(error);
+
+        const daysLeft = Math.floor((new Date(fecha) - new Date()) / 86400000);
+        this.daysLeft = daysLeft < 0 ? 0 : daysLeft;
+      } else {
+        this.daysLeft = 0;
       }
     },
   },

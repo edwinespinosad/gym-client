@@ -55,7 +55,7 @@
                   item-text="name"
                   item-value="id"
                   :items="routines"
-                  :rules="rules.dayRule"
+                  :rules="rules.exerciseRule"
                 ></v-select>
               </v-col>
               <v-col cols="6">
@@ -139,12 +139,11 @@ export default {
       },
 
       rules: {
-        dayRule: [(v) => !!v || "La categoría es requerida"],
-        seriesRule: [(v) => !!v || "La categoría es requerida"],
-        repetitionsRule: [(v) => !!v || "La categoría es requerida"],
-        weightRule: [(v) => !!v || "La categoría es requerida"],
-        clientRule: [(v) => !!v || "La descripción es requerida"],
-        routineRule: [(v) => !!v || "La descripción es requerida"],
+        dayRule: [(v) => !!v || "El día es requerido"],
+        seriesRule: [(v) => !!v || "Las series son requeridas"],
+        repetitionsRule: [(v) => !!v || "Las repeticiones son requeridas"],
+        weightRule: [(v) => !!v || "El peso es requerido"],
+        exerciseRule: [(v) => !!v || "El ejercicio es requerido"],
       },
     };
   },
