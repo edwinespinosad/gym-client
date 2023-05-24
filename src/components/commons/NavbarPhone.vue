@@ -37,7 +37,7 @@
                     {{ link.icon }}
                   </v-icon>
                 </div>
-                <h5 style="color: white">{{ link.title }}</h5>
+                <h5 style="color: white" class="ml-2">{{ link.title }}</h5>
               </div>
             </router-link>
           </div>

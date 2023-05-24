@@ -2,7 +2,6 @@
   <v-app class="">
     <v-row v-if="logged" style="background-color: #000000">
       <Navbar :class="navbarDesktopClass"></Navbar>
-      <!-- <NavbarPhone :class="navbarPhoneClass"></NavbarPhone> -->
       <v-col
         class="text-white"
         cols="12"
