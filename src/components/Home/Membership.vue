@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="2">
+  <v-col cols="12" lg="2" xl="2" class="mb-ph-5">
     <h5>Membresía</h5>
     <v-card
       color="#0f0f0f"

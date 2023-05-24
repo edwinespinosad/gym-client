@@ -44,7 +44,7 @@
                   :rules="rules.dayRule"
                 ></v-select>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" lg="6" xl="6">
                 <p>Ejercicio</p>
                 <v-select
                   v-model="routine.fk_id_routine"
@@ -58,7 +58,7 @@
                   :rules="rules.exerciseRule"
                 ></v-select>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" lg="6" xl="6">
                 <p>Series</p>
                 <v-text-field
                   v-model="routine.series"
@@ -70,7 +70,7 @@
                   :rules="rules.seriesRule"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" lg="6" xl="6">
                 <p>Repeticiones</p>
                 <v-text-field
                   v-model="routine.repetitions"
@@ -81,7 +81,7 @@
                   :rules="rules.repetitionsRule"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" lg="6" xl="6">
                 <p>Peso</p>
                 <v-text-field
                   v-model="routine.weight"

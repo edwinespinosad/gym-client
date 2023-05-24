@@ -53,6 +53,9 @@ h5 {
 .active-link i.v-icon.v-icon {
     color: #0f0f0f !important;
 }
+.active-link h5{
+    color: #0f0f0f !important;
+}
 
 .drop {
     background: #ffffff;
@@ -64,6 +67,7 @@ h5 {
 
 .router {
     text-decoration: none;
+    color: #000000 !important;
 }
 
 .table-hover tbody tr:hover td {
@@ -92,4 +96,24 @@ h5 {
 
 .bg-gray {
     background-color: #0f0f0f !important;
+}
+
+
+
+
+/* MEDIA QUERY */
+@media (max-width: 991px) {
+    .none {
+        display: none;
+    }
+
+    .mb-ph-5 {
+        margin-bottom: 20px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .inset {
+        margin-left: 72px;
+    }
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="8">
+  <v-col cols="12" lg="10" xl="10" class="mb-ph-5">
     <div class="d-flex justify-content-between pb-2">
       <h5>Mis Rutinas</h5>
       <FormRoutines></FormRoutines>
@@ -12,7 +12,9 @@
     >
       <v-row v-if="routines !== null">
         <v-col
-          cols="4"
+          cols="12"
+          lg="4"
+          xl="4"
           v-for="(group, day) in routines"
           :key="day"
           class="border border-gray"
@@ -36,6 +38,7 @@
         </v-col>
       </v-row>
       <div
+        v-else
         class="d-flex justify-content-center align-items-center"
         style="height: 280px"
       >

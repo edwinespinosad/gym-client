@@ -1,29 +1,15 @@
 <template>
-  <v-row>
-    <v-col cols="5">
-      <div class="d-flex">
-        <h5 class="w-100">Actividad</h5>
-        <v-select
-          :items="filters"
-          outlined
-          dark
-          :height="30"
-          dense
-          v-model="periodMembershipSales"
-          class="remove"
-        ></v-select>
-      </div>
-      <v-card color="#0f0f0f" dark class="p-4 h-90">
-        <canvas id="myChart" ref="chartMembershipSales" class=""></canvas>
-      </v-card>
-    </v-col>
+  <v-row class="p-0 m-0">
+    <Membership></Membership>
+    <Routines></Routines>
 
-    <v-col cols="5">
+    <Goals></Goals>
+    <v-col cols="12" lg="8" xl="8">
       <h5>Instructores</h5>
 
       <swiper
         ref="mySwiper"
-        :slidesPerView="2"
+        :slidesPerView="slidesPerView"
         :spaceBetween="30"
         :freeMode="true"
         :pagination="{
@@ -43,12 +29,6 @@
         </swiper-slide>
       </swiper>
     </v-col>
-
-    <Membership></Membership>
-
-    <Goals></Goals>
-
-    <Routines></Routines>
   </v-row>
 </template>
 
@@ -137,6 +117,11 @@ export default {
   },
   created() {
     this.getInstructors();
+  },
+  computed: {
+    slidesPerView() {
+      return this.$vuetify.breakpoint.smAndDown ? 1 : 3;
+    },
   },
   watch: {
     periodIncome: function (newVal, oldVal) {

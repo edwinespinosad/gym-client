@@ -173,6 +173,7 @@ export default {
           (v) => (v && v.length == 10) || "El teléfono debe tener 10 dígitos",
         ],
         emailRule: [(v) => !!v || "El correo es requerido"],
+        passwordRule: [(v) => !!v || "La contraseña es requerida"],
       },
     };
   },

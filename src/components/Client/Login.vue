@@ -1,14 +1,14 @@
 <template>
   <div class="container-fluid bg-dark text-white">
     <v-row class="vh-100">
-      <v-col cols="5" class="m-0 p-0">
+      <v-col cols="5" class="m-0 p-0 none">
         <v-img
           lazy-src="https://picsum.photos/id/11/10/6"
           class="vh-100"
           src="/main.jpg"
         ></v-img>
       </v-col>
-      <v-col cols="7" class="py-5 my-5">
+      <v-col cols="12" lg="7" xl="7" class="py-5 my-5">
         <v-img
           lazy-src="https://picsum.photos/id/11/10/6"
           max-width="80%"
@@ -21,7 +21,7 @@
         <v-form ref="form" lazy-validation v-model="valid">
           <v-card-text>
             <v-row>
-              <v-col cols="6" offset="3">
+              <v-col cols="12" offset-lg="3" offset-xl="3">
                 <p>Correo Electrónico</p>
                 <v-text-field
                   v-model="user.email"
@@ -32,7 +32,7 @@
                   :rules="rules.emailRule"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6" offset="3">
+              <v-col cols="12" offset-lg="3" offset-xl="3">
                 <p>Contraseña</p>
                 <v-text-field
                   v-model="user.password"
@@ -54,7 +54,7 @@
               </v-col>
 
               <v-col cols="12">
-                <v-divider inset dark style="opacity: 1 !important"></v-divider>
+                <v-divider class="inset" dark style="opacity: 1 !important"></v-divider>
               </v-col>
               <v-col
                 cols="12"

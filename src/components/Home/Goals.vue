@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="4" class="">
+  <v-col cols="12" lg="4" xl="4" class="">
     <div class="d-flex justify-content-between pb-2">
       <h5>Metas</h5>
       <FormGoals></FormGoals>

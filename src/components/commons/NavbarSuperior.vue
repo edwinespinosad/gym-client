@@ -3,11 +3,19 @@
     class="d-flex justify-content-between align-items-center align-content-center px-5 py-3"
     style="background-color: #0f0f0f"
   >
-    <div class="messages">
+    <NavbarPhone
+      v-if="isMobileScreen"
+      @collapsed="handleCollapse"
+    ></NavbarPhone>
+
+    <div class="messages" v-if="dismiss">
       <p>{{ message }}</p>
       <h5>Bienvenido de vuelta</h5>
     </div>
-    <div class="user d-flex align-content-center align-items-center gap-2">
+    <div
+      class="user d-flex align-content-center align-items-center gap-2"
+      v-if="dismiss"
+    >
       <v-icon color="#FFFFFF">fa-regular fa-circle-user</v-icon>
       <h5 class="mt-1">
         {{ user.name }}
@@ -18,17 +26,47 @@
 </template>
 
 <script>
+import NavbarPhone from "./NavbarPhone.vue";
 export default {
+  components: { NavbarPhone },
   props: {
     user: { type: Object, required: true },
   },
   data() {
     return {
+      collapsedState: false,
+      dismiss: true,
       message: "",
       time: new Date(),
+      isMobileScreen: false,
     };
   },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.isMobileScreen = window.innerWidth < 991;
+    },
+    handleCollapse(isCollapsed) {
+      this.collapsedState = isCollapsed;
+      if (isCollapsed) {
+        console.log("El botón está colapsado");
+        this.dismiss = false;
+      } else {
+        console.log("El botón está descolapsado");
+        this.dismiss = true;
+      }
+    },
+  },
   computed: {
+    navbarPhoneClass() {
+      return this.isMobileScreen ? "" : "d-none";
+    },
     messageText() {
       const hour = this.time.getHours();
       if (hour >= 4 && hour < 12) {

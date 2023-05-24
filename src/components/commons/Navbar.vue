@@ -1,7 +1,7 @@
 <template>
-  <div class="col-1" style="background-color: #0f0f0f">
+  <v-col lg="1" xl="1" style="background-color: #0f0f0f">
     <div
-      class="text-white d-flex flex-column align-items-center sticky-top gap-4"
+      class="text-white d-flex flex-column align-items-center gap-4"
     >
       <v-img src="/perfil.png" width="500" aspect-ratio="1"></v-img>
 
@@ -38,7 +38,7 @@
         <v-icon color="#FFFFFF"> fa-solid fa-right-from-bracket </v-icon>
       </div>
     </div>
-  </div>
+  </v-col>
 </template>
 
 <script>
