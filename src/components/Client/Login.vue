@@ -21,7 +21,7 @@
         <v-form ref="form" lazy-validation v-model="valid">
           <v-card-text>
             <v-row>
-              <v-col cols="12" offset-lg="3" offset-xl="3">
+              <v-col cols="12" lg="6" xl="6" offset-lg="3" offset-xl="3">
                 <p>Correo Electrónico</p>
                 <v-text-field
                   v-model="user.email"
@@ -32,7 +32,7 @@
                   :rules="rules.emailRule"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" offset-lg="3" offset-xl="3">
+              <v-col cols="12" lg="6" xl="6" offset-lg="3" offset-xl="3">
                 <p>Contraseña</p>
                 <v-text-field
                   v-model="user.password"
@@ -54,7 +54,11 @@
               </v-col>
 
               <v-col cols="12">
-                <v-divider class="inset" dark style="opacity: 1 !important"></v-divider>
+                <v-divider
+                  class="inset"
+                  dark
+                  style="opacity: 1 !important"
+                ></v-divider>
               </v-col>
               <v-col
                 cols="12"

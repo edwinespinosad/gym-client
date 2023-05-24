@@ -110,7 +110,6 @@ export default {
   },
   methods: {
     handleResize() {
-      console.log(window.innerWidth);
       this.isMobileScreen = window.innerWidth < 991;
     },
     close() {

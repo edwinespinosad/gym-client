@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="6">
+  <v-col cols="12" lg="6" xl="6" class="mb-ph-5">
     <div class="d-flex justify-content-between align-items-end pb-2">
       <h5>Tu progreso en medidas</h5>
       <FormSizes></FormSizes>
@@ -8,7 +8,7 @@
       color="#0f0f0f"
       dark
       class="px-4 py-2"
-      style="overflow-y: auto; height: auto"
+      style="overflow-y: auto; height: 700px"
     >
       <v-row class="fill-height">
         <v-col>
@@ -167,32 +167,31 @@ export default {
     },
     async getSizes() {
       this.events = [];
-      await axios
-        .get(this.URL_GET_SIZES + localStorage.getItem("user"), {
+      const response = await axios.get(
+        this.URL_GET_SIZES + localStorage.getItem("user"),
+        {
           headers: { "x-access-token": localStorage.getItem("token") },
-        })
-        .then((response) => {
-          this.sizes = response.data.rows;
-        })
-        .catch((error) => {
-          this.message = "No hay registros";
-        });
+        }
+      );
+      if (response.data.success) {
+        this.sizes = response.data.rows;
 
-      this.sizes.forEach((size) => {
-        this.events.push({
-          name: "Ver más",
-          start: new Date(size.date).toISOString().slice(0, 10),
-          end: new Date(size.date).toISOString().slice(0, 10),
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          weight: size.weight,
-          height: size.height,
-          chest: size.chest,
-          waist: size.waist,
-          thigh: size.thigh,
-          bicep: size.bicep,
-          imc: size.imc,
+        this.sizes.forEach((size) => {
+          this.events.push({
+            name: "Ver más",
+            start: new Date(size.date).toISOString().slice(0, 10),
+            end: new Date(size.date).toISOString().slice(0, 10),
+            color: this.colors[this.rnd(0, this.colors.length - 1)],
+            weight: size.weight,
+            height: size.height,
+            chest: size.chest,
+            waist: size.waist,
+            thigh: size.thigh,
+            bicep: size.bicep,
+            imc: size.imc,
+          });
         });
-      });
+      }
     },
     formatDate(dateString) {
       const parts = dateString.split("/");

@@ -55,10 +55,8 @@ export default {
     handleCollapse(isCollapsed) {
       this.collapsedState = isCollapsed;
       if (isCollapsed) {
-        console.log("El botón está colapsado");
         this.dismiss = false;
       } else {
-        console.log("El botón está descolapsado");
         this.dismiss = true;
       }
     },

@@ -84,43 +84,46 @@ export default {
           headers: { "x-access-token": localStorage.getItem("token") },
         })
         .then((response) => {
-          this.routines = response.data.rows;
-          const dayOrder = {
-            lunes: 1,
-            martes: 2,
-            miercoles: 3,
-            jueves: 4,
-            viernes: 5,
-            sabado: 6,
-            domingo: 7,
-          };
+          if (response.data.success) {
+            this.routines = response.data.rows;
+            const dayOrder = {
+              lunes: 1,
+              martes: 2,
+              miercoles: 3,
+              jueves: 4,
+              viernes: 5,
+              sabado: 6,
+              domingo: 7,
+            };
 
-          this.routines.sort((a, b) => {
-            const diaA = a.day.toLowerCase();
-            const diaB = b.day.toLowerCase();
+            this.routines.sort((a, b) => {
+              const diaA = a.day.toLowerCase();
+              const diaB = b.day.toLowerCase();
 
-            if (dayOrder[diaA] && dayOrder[diaB]) {
-              return dayOrder[diaA] - dayOrder[diaB];
-            }
+              if (dayOrder[diaA] && dayOrder[diaB]) {
+                return dayOrder[diaA] - dayOrder[diaB];
+              }
 
-            if (!dayOrder[diaA] && !dayOrder[diaB]) {
-              return 0;
-            }
+              if (!dayOrder[diaA] && !dayOrder[diaB]) {
+                return 0;
+              }
 
-            return dayOrder[diaA] ? -1 : 1;
-          });
+              return dayOrder[diaA] ? -1 : 1;
+            });
 
-          this.routines = this.routines.reduce((agrupados, objeto) => {
-            const { day } = objeto;
-            if (!agrupados[day]) {
-              agrupados[day] = [];
-            }
-            agrupados[day].push(objeto);
-            return agrupados;
-          }, {});
+            this.routines = this.routines.reduce((agrupados, objeto) => {
+              const { day } = objeto;
+              if (!agrupados[day]) {
+                agrupados[day] = [];
+              }
+              agrupados[day].push(objeto);
+              return agrupados;
+            }, {});
+          } else {
+            this.message = "No hay rutinas";
+          }
         })
         .catch((error) => {
-          // console.log(error);
           this.message = "No hay rutinas";
         });
     },

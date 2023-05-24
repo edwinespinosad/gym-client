@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="p-0 m-0">
     <Photos></Photos>
     <Sizes></Sizes>
   </v-row>
