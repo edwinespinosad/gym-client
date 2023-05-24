@@ -20,7 +20,8 @@
             'text-success': daysLeft >= 5,
           }"
         >
-          {{ daysLeft }} {{ daysLeft === 1 ? "día" : "días" }}
+          {{ daysLeft }}
+          {{ daysLeft === 1 ? "día restantes" : "días restantes" }}
         </h5>
       </div>
       <p v-else class="p-5 text-center">No tienes ninguna membresía activa</p>

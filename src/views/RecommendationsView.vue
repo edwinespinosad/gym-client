@@ -12,7 +12,15 @@
         v-for="(item, i) in meals"
         :key="i"
       >
-        <v-img height="250" :src="item.image"></v-img>
+        <v-img height="250" :src="item.image">
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row> </template
+        ></v-img>
 
         <v-card-title class="text-white fw-bold">{{ item.name }}</v-card-title>
 

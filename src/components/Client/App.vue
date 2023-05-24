@@ -1,6 +1,6 @@
 <template>
   <v-app class="">
-    <v-row v-if="logged" style="background-color: #000000">
+    <v-row v-if="logged" class="m-0 p-0" style="background-color: #000000">
       <Navbar :class="navbarDesktopClass"></Navbar>
       <v-col
         class="text-white"

@@ -16,7 +16,17 @@
       class="user d-flex align-content-center align-items-center gap-2"
       v-if="dismiss"
     >
-      <v-icon color="#FFFFFF">fa-regular fa-circle-user</v-icon>
+      <v-icon color="#FFFFFF" v-if="user.image === null"
+        >fa-regular fa-circle-user</v-icon
+      >
+      <v-img
+        v-else
+        :src="user.image"
+        class="rounded-circle"
+        width="60"
+        aspect-ratio="1"
+      ></v-img>
+
       <h5 class="mt-1">
         {{ user.name }}
         {{ user.last_name }}
